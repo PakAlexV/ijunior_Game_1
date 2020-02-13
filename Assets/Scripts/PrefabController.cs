@@ -9,9 +9,7 @@ public class PrefabController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        string name = collision.gameObject.GetComponent<SpriteRenderer>().sprite.name;
-
-        if ((collision.gameObject.tag == "land") ||(collision.gameObject.tag == "hole"))
+        if ((collision.gameObject.GetComponent<Ground>() != null) || (collision.gameObject.GetComponent<Hole>() != null))
         {
             OnEvent.Invoke();
         }

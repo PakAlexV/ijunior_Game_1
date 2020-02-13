@@ -5,8 +5,8 @@ using UnityEngine.Events;
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] private Transform _selfTransform = default;
-    [SerializeField] private Rigidbody2D _selfRigidbody = default;
+    [SerializeField] private Transform _selfTransform;
+    [SerializeField] private Rigidbody2D _selfRigidbody;
     [SerializeField][Range(2, 7)] private int _jumpForce = 5;
     [SerializeField][Range(1, 5)] private int _speed = 2;
     private Vector3 _nextPos;
@@ -40,8 +40,8 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "land") { _canJump = true; }
-        if (collision.gameObject.tag == "coin")
+        if (collision.gameObject.GetComponent<Ground>() != null) { _canJump = true; }
+        if (collision.gameObject.GetComponent<Coin>() != null)
         {
             getCoins.Invoke();
             Destroy(collision.gameObject);
@@ -50,7 +50,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if ((collision.gameObject.tag == "hole") || (collision.gameObject.tag == "barrier"))
+        if ((collision.gameObject.GetComponent<Hole>() != null) || (collision.gameObject.GetComponent<Barrier>() != null))
         {
             Time.timeScale = 0;
             gameOver.Invoke();

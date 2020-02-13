@@ -10,7 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 5110756767403706805}
   - component: {fileID: 1067768736464320087}
-  - component: {fileID: 111245380772548784}
+  - component: {fileID: 61427871004885292}
+  - component: {fileID: 114934001794082014}
   m_Layer: 0
   m_Name: hole
   m_TagString: hole
@@ -80,7 +81,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!61 &111245380772548784
+--- !u!61 &61427871004885292
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -93,7 +94,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.26464224}
+  m_Offset: {x: 0, y: -0.2731532}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -104,5 +105,17 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 0.47071552}
+  m_Size: {x: 1, y: 0.45369363}
   m_EdgeRadius: 0
+--- !u!114 &114934001794082014
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 227283821423877131}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8de60f1313f29294c8cc3b628b2d9a2d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

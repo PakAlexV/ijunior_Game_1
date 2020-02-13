@@ -5,8 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
 {
-    [SerializeField] private GameObject _panelAbout = default;
-    [SerializeField] private GameObject _panelGameOver = default;
+    [SerializeField] private GameObject _panelAbout;
+    [SerializeField] private GameObject _panelGameOver;
 
     public void GameOver()
     {

@@ -382,9 +382,9 @@ GameObject:
   m_Component:
   - component: {fileID: 519420032}
   - component: {fileID: 519420031}
-  - component: {fileID: 519420030}
   - component: {fileID: 519420029}
   - component: {fileID: 519420033}
+  - component: {fileID: 519420030}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -418,30 +418,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57cd67fa6cc71fa43b3aedd0ae7c0ecf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _groundButtom: {fileID: 21300018, guid: 08d8cdcc359b1594594548ca20a762ff, type: 3}
-  _groundTop: {fileID: 21300000, guid: 08d8cdcc359b1594594548ca20a762ff, type: 3}
-  _groundLeft: {fileID: 21300016, guid: 08d8cdcc359b1594594548ca20a762ff, type: 3}
-  _groundRigth: {fileID: 21300050, guid: 08d8cdcc359b1594594548ca20a762ff, type: 3}
-  _groundAngelLeft: {fileID: 21300034, guid: 08d8cdcc359b1594594548ca20a762ff, type: 3}
-  _groundAngelRigth: {fileID: 21300068, guid: 08d8cdcc359b1594594548ca20a762ff, type: 3}
-  _holeTop: {fileID: 21300004, guid: 08d8cdcc359b1594594548ca20a762ff, type: 3}
-  _holeButtom: {fileID: 21300022, guid: 08d8cdcc359b1594594548ca20a762ff, type: 3}
-  _holeLeft: {fileID: 21300006, guid: 08d8cdcc359b1594594548ca20a762ff, type: 3}
-  _holeRigth: {fileID: 21300002, guid: 08d8cdcc359b1594594548ca20a762ff, type: 3}
-  _holeButLeft: {fileID: 21300024, guid: 08d8cdcc359b1594594548ca20a762ff, type: 3}
-  _holeButRigth: {fileID: 21300020, guid: 08d8cdcc359b1594594548ca20a762ff, type: 3}
-  _waterTop: {fileID: 21300010, guid: 08d8cdcc359b1594594548ca20a762ff, type: 3}
-  _waterButtom: {fileID: 21300028, guid: 08d8cdcc359b1594594548ca20a762ff, type: 3}
-  _waterLeft: {fileID: 21300012, guid: 08d8cdcc359b1594594548ca20a762ff, type: 3}
-  _waterRigth: {fileID: 21300008, guid: 08d8cdcc359b1594594548ca20a762ff, type: 3}
-  _waterButLeft: {fileID: 21300030, guid: 08d8cdcc359b1594594548ca20a762ff, type: 3}
-  _waterButRigth: {fileID: 21300026, guid: 08d8cdcc359b1594594548ca20a762ff, type: 3}
-  _prefBg: {fileID: 5391599489163819401, guid: 6238684ca413b4447ac12f4b9d122551, type: 3}
-  _prefHole: {fileID: 227283821423877131, guid: 73258571e400bb54d98dfd2442d12a05,
+  _ground: {fileID: 11400000, guid: 05605cdba3aa1de46bd8e1864b414f78, type: 2}
+  _hole: {fileID: 11400000, guid: 75bd88e1ffc418f4c9185eec485c62ec, type: 2}
+  _water: {fileID: 11400000, guid: 9813f99c974be434c94452c74c57fc3f, type: 2}
+  _prefabBackground: {fileID: 5391599489163819401, guid: 6238684ca413b4447ac12f4b9d122551,
     type: 3}
-  _prefBarrier: {fileID: 6715589986025965524, guid: 0bef0cff447309e458c2d0b9d1bbd340,
+  _prefabBackgroundBottom: {fileID: 8356607686945736341, guid: fe19f410e08e3134b9866dee71298326,
     type: 3}
-  _prefCoin: {fileID: 2973052037193214109, guid: cc49c21a76ea0c54383a816612754409,
+  _prefabHole: {fileID: 227283821423877131, guid: 73258571e400bb54d98dfd2442d12a05,
+    type: 3}
+  _prefabBarrier: {fileID: 6715589986025965524, guid: 0bef0cff447309e458c2d0b9d1bbd340,
+    type: 3}
+  _prefabCoin: {fileID: 2973052037193214109, guid: cc49c21a76ea0c54383a816612754409,
     type: 3}
   _whatTileDown: 5
 --- !u!20 &519420031
@@ -528,11 +516,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 4516729240067174221, guid: 81055d06e35ae3444964b6ea7943dba2,
-        type: 3}
-      propertyPath: m_TagString
-      value: Player
-      objectReference: {fileID: 0}
     - target: {fileID: 4516729240067174256, guid: 81055d06e35ae3444964b6ea7943dba2,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -590,94 +573,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4516729240067174257, guid: 81055d06e35ae3444964b6ea7943dba2,
         type: 3}
-      propertyPath: OnEvens.m_PersistentCalls.m_Calls.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4516729240067174257, guid: 81055d06e35ae3444964b6ea7943dba2,
-        type: 3}
-      propertyPath: getCoins.m_PersistentCalls.m_Calls.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4516729240067174257, guid: 81055d06e35ae3444964b6ea7943dba2,
-        type: 3}
-      propertyPath: gameOver.m_PersistentCalls.m_Calls.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4516729240067174257, guid: 81055d06e35ae3444964b6ea7943dba2,
-        type: 3}
-      propertyPath: OnEvens.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4516729240067174257, guid: 81055d06e35ae3444964b6ea7943dba2,
-        type: 3}
-      propertyPath: OnEvens.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4516729240067174257, guid: 81055d06e35ae3444964b6ea7943dba2,
-        type: 3}
-      propertyPath: OnEvens.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 1438598297}
-    - target: {fileID: 4516729240067174257, guid: 81055d06e35ae3444964b6ea7943dba2,
-        type: 3}
-      propertyPath: OnEvens.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: AddScore
-      objectReference: {fileID: 0}
-    - target: {fileID: 4516729240067174257, guid: 81055d06e35ae3444964b6ea7943dba2,
-        type: 3}
-      propertyPath: OnEvens.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
-    - target: {fileID: 4516729240067174257, guid: 81055d06e35ae3444964b6ea7943dba2,
-        type: 3}
-      propertyPath: getCoins.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4516729240067174257, guid: 81055d06e35ae3444964b6ea7943dba2,
-        type: 3}
-      propertyPath: getCoins.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4516729240067174257, guid: 81055d06e35ae3444964b6ea7943dba2,
-        type: 3}
       propertyPath: getCoins.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1438598297}
     - target: {fileID: 4516729240067174257, guid: 81055d06e35ae3444964b6ea7943dba2,
         type: 3}
-      propertyPath: getCoins.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: AddScore
-      objectReference: {fileID: 0}
-    - target: {fileID: 4516729240067174257, guid: 81055d06e35ae3444964b6ea7943dba2,
-        type: 3}
-      propertyPath: getCoins.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
-    - target: {fileID: 4516729240067174257, guid: 81055d06e35ae3444964b6ea7943dba2,
-        type: 3}
-      propertyPath: gameOver.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4516729240067174257, guid: 81055d06e35ae3444964b6ea7943dba2,
-        type: 3}
-      propertyPath: gameOver.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4516729240067174257, guid: 81055d06e35ae3444964b6ea7943dba2,
-        type: 3}
       propertyPath: gameOver.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 519420033}
-    - target: {fileID: 4516729240067174257, guid: 81055d06e35ae3444964b6ea7943dba2,
-        type: 3}
-      propertyPath: gameOver.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: GameOver
-      objectReference: {fileID: 0}
-    - target: {fileID: 4516729240067174257, guid: 81055d06e35ae3444964b6ea7943dba2,
-        type: 3}
-      propertyPath: gameOver.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 81055d06e35ae3444964b6ea7943dba2, type: 3}
 --- !u!4 &1222870825 stripped

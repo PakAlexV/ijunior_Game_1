@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class CoinScore : MonoBehaviour
 {
-    [SerializeField] private Text _scoreText = default;
+    [SerializeField] private Text _scoreText;
     private int _score = 0;
 
     public void AddScore()

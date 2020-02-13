@@ -1,0 +1,24 @@
+fileFormatVersion: 2
+guid: 57cd67fa6cc71fa43b3aedd0ae7c0ecf
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - _ground: {fileID: 11400000, guid: 05605cdba3aa1de46bd8e1864b414f78, type: 2}
+  - _hole: {fileID: 11400000, guid: 75bd88e1ffc418f4c9185eec485c62ec, type: 2}
+  - _water: {fileID: 11400000, guid: 9813f99c974be434c94452c74c57fc3f, type: 2}
+  - _prefabBackground: {fileID: 5391599489163819401, guid: 6238684ca413b4447ac12f4b9d122551,
+      type: 3}
+  - _prefabBackgroundBottom: {fileID: 8356607686945736341, guid: fe19f410e08e3134b9866dee71298326,
+      type: 3}
+  - _prefabHole: {fileID: 227283821423877131, guid: 73258571e400bb54d98dfd2442d12a05,
+      type: 3}
+  - _prefabBarrier: {fileID: 6715589986025965524, guid: 0bef0cff447309e458c2d0b9d1bbd340,
+      type: 3}
+  - _prefabCoin: {fileID: 2973052037193214109, guid: cc49c21a76ea0c54383a816612754409,
+      type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
