@@ -2,6 +2,7 @@
 
 public class GeneratorLandscape : MonoBehaviour
 {
+    [SerializeField] private GameObject _landscape;
     [SerializeField] private EnvironmentPalite _ground;
     [SerializeField] private EnvironmentPalite _hole;
     [SerializeField] private EnvironmentPalite _water;
@@ -45,7 +46,8 @@ public class GeneratorLandscape : MonoBehaviour
     private void InstantiateTile(int x, int y, Sprite sprite, GameObject prefab)
     {
         prefab.GetComponent<SpriteRenderer>().sprite = sprite;
-        Instantiate(prefab, new Vector3(x, y, 0), Quaternion.identity);
+        GameObject gameObject = Instantiate(prefab, new Vector3(x, y, 0), Quaternion.identity);
+        gameObject.transform.SetParent(_landscape.transform);
     }
 
     private void DrawTile()

@@ -419,6 +419,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57cd67fa6cc71fa43b3aedd0ae7c0ecf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _landscape: {fileID: 0}
   _ground: {fileID: 11400000, guid: 05605cdba3aa1de46bd8e1864b414f78, type: 2}
   _hole: {fileID: 11400000, guid: 75bd88e1ffc418f4c9185eec485c62ec, type: 2}
   _water: {fileID: 11400000, guid: 9813f99c974be434c94452c74c57fc3f, type: 2}
@@ -505,6 +506,36 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _panelAbout: {fileID: 0}
   _panelGameOver: {fileID: 1250993601}
+--- !u!1 &807189260
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 807189261}
+  m_Layer: 0
+  m_Name: Landscape
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &807189261
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 807189260}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1044342682
 PrefabInstance:
   m_ObjectHideFlags: 0
