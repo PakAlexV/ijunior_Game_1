@@ -157,7 +157,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9fc7e6fe4e57a5348be90e3755bf8b5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OnEvent:
+  onEvent:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 519420030}
@@ -405,7 +405,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _cameraTransform: {fileID: 519420032}
-  _playerTransform: {fileID: 1222870825}
+  _targetTransform: {fileID: 1222870825}
+  _offcetCenter: {x: 0, y: 2, z: 0}
 --- !u!114 &519420030
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -573,6 +574,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4516729240067174257, guid: 81055d06e35ae3444964b6ea7943dba2,
         type: 3}
+      propertyPath: gameOver.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4516729240067174257, guid: 81055d06e35ae3444964b6ea7943dba2,
+        type: 3}
       propertyPath: getCoins.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1438598297}
@@ -581,6 +587,22 @@ PrefabInstance:
       propertyPath: gameOver.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 519420033}
+    - target: {fileID: 4516729240067174257, guid: 81055d06e35ae3444964b6ea7943dba2,
+        type: 3}
+      propertyPath: gameOver.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4516729240067174257, guid: 81055d06e35ae3444964b6ea7943dba2,
+        type: 3}
+      propertyPath: gameOver.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4516729240067174257, guid: 81055d06e35ae3444964b6ea7943dba2,
+        type: 3}
+      propertyPath: gameOver.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 11500000, guid: 57cd67fa6cc71fa43b3aedd0ae7c0ecf,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 81055d06e35ae3444964b6ea7943dba2, type: 3}
 --- !u!4 &1222870825 stripped

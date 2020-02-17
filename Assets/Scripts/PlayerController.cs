@@ -40,7 +40,10 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.GetComponent<Ground>() != null) { _canJump = true; }
+        if (collision.gameObject.GetComponent<Ground>() != null)
+        {
+            _canJump = true;
+        }
         if (collision.gameObject.GetComponent<Coin>() != null)
         {
             getCoins.Invoke();

@@ -1,9 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class CoinScore : MonoBehaviour
+public class Score : MonoBehaviour
 {
     [SerializeField] private Text _scoreText;
     private int _score = 0;
