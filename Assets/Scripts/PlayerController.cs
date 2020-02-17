@@ -27,10 +27,6 @@ public class PlayerController : MonoBehaviour
             _canJump = false;
             _selfRigidbody.AddForce(new Vector2(0, _jumpForce), ForceMode2D.Impulse);
         }
-        if (Input.GetKey(KeyCode.D))
-        {
-            _selfTransform.position = Vector3.MoveTowards(_selfTransform.position, _nextPos, Time.deltaTime * _speed);
-        }
         _selfTransform.position = Vector3.MoveTowards(_selfTransform.position, _nextPos, Time.deltaTime * _speed);
         if (_selfTransform.position.x - _nextPos.x < 0.3f)
         {
