@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
 
-public class PrefabController : MonoBehaviour
+public class DestroerPrefab : MonoBehaviour
 {
     public UnityEvent onEvent;
 
