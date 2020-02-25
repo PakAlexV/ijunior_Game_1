@@ -12,11 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a57c556185957fa449819c815e6fd44b, type: 3}
   m_Name: Hole
   m_EditorClassIdentifier: 
-  topSprite: {fileID: 21300004, guid: 08d8cdcc359b1594594548ca20a762ff, type: 3}
-  leftSprite: {fileID: 21300006, guid: 08d8cdcc359b1594594548ca20a762ff, type: 3}
-  rigthSprite: {fileID: 21300002, guid: 08d8cdcc359b1594594548ca20a762ff, type: 3}
-  bottomSprite: {fileID: 21300022, guid: 08d8cdcc359b1594594548ca20a762ff, type: 3}
-  angelLeftSprite: {fileID: 0}
-  angelRigthSprite: {fileID: 0}
-  bottomLeftSprite: {fileID: 21300024, guid: 08d8cdcc359b1594594548ca20a762ff, type: 3}
-  bottomRigthSprite: {fileID: 21300020, guid: 08d8cdcc359b1594594548ca20a762ff, type: 3}
+  _typePalite: 1
+  _surfaceSprite: {fileID: 21300004, guid: 08d8cdcc359b1594594548ca20a762ff, type: 3}
+  _leftSprite: {fileID: 21300006, guid: 08d8cdcc359b1594594548ca20a762ff, type: 3}
+  _rigthSprite: {fileID: 21300002, guid: 08d8cdcc359b1594594548ca20a762ff, type: 3}
+  _bottomSprite: {fileID: 21300022, guid: 08d8cdcc359b1594594548ca20a762ff, type: 3}
+  _bottomLeftSprite: {fileID: 21300024, guid: 08d8cdcc359b1594594548ca20a762ff, type: 3}
+  _bottomRigthSprite: {fileID: 21300020, guid: 08d8cdcc359b1594594548ca20a762ff, type: 3}
+  _angelLeftSprite: {fileID: 0}
+  _angelRigthSprite: {fileID: 0}

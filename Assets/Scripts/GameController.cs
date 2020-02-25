@@ -6,35 +6,35 @@ public class GameController : MonoBehaviour
     [SerializeField] private GameObject _panelAbout;
     [SerializeField] private GameObject _panelGameOver;
 
-    public void GameOver()
+    public void OnGameOver()
     {
         Time.timeScale = 0;
         _panelGameOver.SetActive(true);
     }
 
-    public void ReloadGame()
+    public void OnOpenMenu()
     {
         Time.timeScale = 1;
         SceneManager.LoadScene("Menu");
     }
 
-    public void NewGameBtn()
+    public void OnNewGame()
     {
         SceneManager.LoadScene("Game");
     }
 
-    public void AboutBtn()
+    public void OnOpenPanelAbout()
     {
         _panelAbout.SetActive(true);
     }
 
-    public void ExitBtn()
+    public void OnExitGame()
     {
         Application.Quit();
     }
 
-    public void OnClick()
+    public void OnClosePanelAbout()
     {
         _panelAbout.SetActive(false);
-    }
+    }    
 }

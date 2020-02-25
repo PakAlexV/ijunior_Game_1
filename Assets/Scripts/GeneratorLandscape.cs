@@ -1,195 +1,153 @@
 ﻿using UnityEngine;
 
+[RequireComponent(typeof(ReceiveSprites))]
+[RequireComponent(typeof(DrawTile))]
 public class GeneratorLandscape : MonoBehaviour
 {
-    [SerializeField] private GameObject _landscape;
-    [SerializeField] private EnvironmentPalite _ground;
-    [SerializeField] private EnvironmentPalite _hole;
-    [SerializeField] private EnvironmentPalite _water;
+    [SerializeField] private GameObject _landscapeParent;
+    [SerializeField] private DestroyerLandscape _destroerLandscape;
 
-    [SerializeField] private GameObject _prefabBackground;
-    [SerializeField] private GameObject _prefabBackgroundBottom;
+    [SerializeField] [Range(3, 6)] private int _depthLandscape = 5;
+    [SerializeField] [Range(10, 25)] private int _initWidthLandscape = 22;
+
+    [SerializeField] private GameObject _prefabSurfase;
+    [SerializeField] private GameObject _prefabBottom;
     [SerializeField] private GameObject _prefabHole;
     [SerializeField] private GameObject _prefabBarrier;
     [SerializeField] private GameObject _prefabCoin;
 
-    [SerializeField] [Range(3, 6)] private int _whatTileDown = 5;
+    private ReceiveSprites _receiveSprites;
+    private DrawTile _drawTile;
+    private Vector2 _currentPositionLandscepe = new Vector2(0, 0);
+    private Sprite nextSprite;
+    private bool _canDrawBarriers = false;
 
-    private int _initLocationMin = -8;
-    private int _initLocationMax = 10;
-
-    private int _currentX;
-    private int _currentY = 0;
-    private int _lastBarrierX = 0;       
-    private Sprite _currentSprite;
-    
-    public void OnDestroyTile()
+    private void OnTileDestroyed()
     {
-        DrawTile();
+        DrawLandscape();
+        UpdatePositionLandscape(nextSprite);
+    }
+
+    private void OnDisable()
+    {
+        _destroerLandscape.LandscapeDestroyed -= OnTileDestroyed;
+    }
+
+    private void OnEnable()
+    {
+        _destroerLandscape.LandscapeDestroyed += OnTileDestroyed;
     }
 
     private void Start()
     {
+        _receiveSprites = FindObjectOfType<ReceiveSprites>();
+        _drawTile = FindObjectOfType<DrawTile>();
         DrawPrimaryLandscape();
+    }
+
+    private void UpdatePositionLandscape(Sprite sprite)
+    {
+        if (_receiveSprites.GetUpLandscape(sprite))
+        {
+            _currentPositionLandscepe.y++;
+        }
+        else if (_receiveSprites.GetDownLandscape(sprite))
+        {
+            _currentPositionLandscepe.y--;
+        }
+        else
+        {
+            _currentPositionLandscepe.x++;
+        }
     }
 
     private void DrawPrimaryLandscape()
     {
-        _currentSprite = _ground.TopSprite;
-        _currentX = _initLocationMin;
-        while (_currentX <= _initLocationMax)
+        while (_currentPositionLandscepe.x < _initWidthLandscape)
         {
-            DrawTile();
-        }
-    }
-
-    private void InstantiateTile(int x, int y, Sprite sprite, GameObject prefab)
-    {
-        prefab.GetComponent<SpriteRenderer>().sprite = sprite;
-        GameObject gameObject = Instantiate(prefab, new Vector3(x, y, 0), Quaternion.identity);
-        gameObject.transform.SetParent(_landscape.transform);
-    }
-
-    private void DrawTile()
-    {
-        NextRandomTile();        
-        _currentX++;
-    }
-    
-    private void NextRandomTile()
-    {
-        if (_currentY == 2)
-        {
-            MaxHeightGround();
-        }
-        else if (_currentY == -2)
-        {
-            MinHeightGround();
-        }
-        else
-        {
-            MidleHeightGround();
-        }
-    }
-
-    private void MidleHeightGround()
-    {
-        int _r = Random.Range(1, 8);
-        switch (_r)
-        {
-            case 1:
-                DrawHole();
-                break;
-            case 2:
-                DrawWater();
-                break;
-            case 3:
-            case 4:
-                DrawDescentGround();
-                break;
-            case 5:
-            case 6:
-                DrawRiseGround();
-                break;
-            default:
-                DrawGround();
-                break;
-        }
-    }
-
-    private void MaxHeightGround()
-    {
-        int _r = Random.Range(0, 2);
-        if (_r == 0)
-        {
-            DrawGround();
-        } 
-        else
-        {
-            DrawDescentGround();
-        }
-    }
-
-    private void MinHeightGround()
-    {
-        int _r = Random.Range(0, 2);
-        if (_r == 0)
-        {
-            DrawGround();
-        }
-        else
-        {
-            DrawRiseGround();
-        }
-    }
-        
-    private void DrawRiseGround()
-    {
-        InstantiateTile(_currentX, _currentY, _ground.AngelLeftSprite, _prefabBackgroundBottom);
-        DrawGroundDown(_currentX, _currentY - 1, _ground.BottomSprite, _prefabBackgroundBottom);
-        _currentY++;
-        InstantiateTile(_currentX, _currentY, _ground.LeftSprite, _prefabBackground);
-    }
-
-    private void DrawDescentGround()
-    {
-        InstantiateTile(_currentX, _currentY, _ground.RigthSprite, _prefabBackground);
-        _currentY--;
-        InstantiateTile(_currentX, _currentY, _ground.AngelRigthSprite, _prefabBackgroundBottom);
-        DrawGroundDown(_currentX, _currentY - 1, _ground.BottomSprite, _prefabBackgroundBottom);
-    }
-
-    private void DrawHole()
-    {
-        InstantiateTile(_currentX, _currentY, _hole.RigthSprite, _prefabBackground);
-        DrawGroundDown(_currentX, _currentY - 1, _hole.BottomRigthSprite, _prefabBackgroundBottom);
-        _currentX++;
-        InstantiateTile(_currentX, _currentY, _hole.TopSprite, _prefabHole);
-        DrawGroundDown(_currentX, _currentY - 1, _hole.BottomSprite, _prefabBackgroundBottom);
-        _currentX++;
-        InstantiateTile(_currentX, _currentY, _hole.LeftSprite, _prefabBackground);
-        DrawGroundDown(_currentX, _currentY - 1, _hole.BottomLeftSprite, _prefabBackgroundBottom);
-    }
-
-    private void DrawWater()
-    {
-        InstantiateTile(_currentX, _currentY, _water.RigthSprite, _prefabBackground);
-        DrawGroundDown(_currentX, _currentY - 1, _water.BottomRigthSprite, _prefabBackgroundBottom);
-        _currentX++;
-        InstantiateTile(_currentX, _currentY, _water.TopSprite, _prefabHole);
-        DrawGroundDown(_currentX, _currentY - 1, _water.BottomSprite, _prefabBackgroundBottom);
-        _currentX++;
-        InstantiateTile(_currentX, _currentY, _water.LeftSprite, _prefabBackground);
-        DrawGroundDown(_currentX, _currentY - 1, _water.BottomLeftSprite, _prefabBackgroundBottom);
-    }
-
-    private void DrawGround()
-    {
-        InstantiateTile(_currentX, _currentY, _ground.TopSprite, _prefabBackground);
-        DrawGroundDown(_currentX, _currentY - 1, _ground.BottomSprite, _prefabBackgroundBottom);
-        DrawBonus();
-    }
-
-    private void DrawGroundDown(int x, int y, Sprite sprite, GameObject prefab)
-    {
-        InstantiateTile(x, y, sprite, prefab);
-        if (y - 1 > -_whatTileDown)
-        {
-            DrawGroundDown(x, y - 1, sprite, prefab);
+            DrawLandscape();
+            UpdatePositionLandscape(nextSprite);
         }
     }
 
     private void DrawBonus()
     {
-        int _r = Random.Range(1, 10);
-        if (_r > 5)
+        int offsetOverSurfase = 1;
+        if (GetPercentBool(30))
         {
-            Instantiate(_prefabCoin, new Vector3(_currentX, _currentY + 1, 0), Quaternion.identity);
+            DrawTile(new Vector3(_currentPositionLandscepe.x, _currentPositionLandscepe.y + offsetOverSurfase, 0), _prefabCoin);
         }
-        if ((_r < 3) && (_lastBarrierX != _currentX - 1))
+        else if (GetPercentBool(30) && CanDrawBarrier())
         {
-            Instantiate(_prefabBarrier, new Vector3(_currentX, _currentY + 1, 0), Quaternion.identity);
-            _lastBarrierX = _currentX;
+            DrawTile(new Vector3(_currentPositionLandscepe.x, _currentPositionLandscepe.y + offsetOverSurfase, 0), _prefabBarrier);
         }
+    }
+
+    private bool CanDrawBarrier()
+    {
+        if (_canDrawBarriers)
+        {
+            _canDrawBarriers = false;
+        }
+        else
+            _canDrawBarriers = true;
+        return _canDrawBarriers;
+    }
+
+    private void DrawLandscape()
+    {
+        DrawGenereteTile(nextSprite);
+        DrawBottomTiles();
+        if (_receiveSprites.IsSurface(nextSprite))
+        {
+            DrawBonus();
+        }
+    }
+
+    private void DrawTile(Vector3 position, GameObject prefab, Sprite sprite = null)
+    {
+        Tile tile = new Tile(sprite, position, prefab, _landscapeParent);
+        _drawTile.Draw(tile);
+    }
+
+    private void DrawGenereteTile(Sprite sprite)
+    {
+        nextSprite = _receiveSprites.GetNextSprite(sprite, _currentPositionLandscepe.y);
+        Vector3 nextPosition = new Vector3(_currentPositionLandscepe.x, _currentPositionLandscepe.y, 0);
+        GameObject prefab = _prefabSurfase;
+        if (_receiveSprites.IsGap(nextSprite))
+        {
+            prefab = _prefabHole;
+        }
+        DrawTile(nextPosition, prefab, nextSprite);
+    }
+
+    private void DrawBottomTiles()
+    {
+        if (_receiveSprites.CanBottomSprite(nextSprite))
+        {
+            int offsetDown = 1;
+            Sprite bottomSprite = _receiveSprites.GetBottomSprite(nextSprite);
+            Vector3 position = new Vector3(_currentPositionLandscepe.x, _currentPositionLandscepe.y - offsetDown, 0);
+            Tile tile = new Tile(bottomSprite, position, _prefabBottom, _landscapeParent);
+            DrawRecursesGroundDown(tile);
+        }
+    }
+
+    private void DrawRecursesGroundDown(Tile tile)
+    {
+        int offsetDown = 1;
+        _drawTile.Draw(tile);
+        if (tile.Position.y - offsetDown > -_depthLandscape)
+        {
+            tile.Position = new Vector3(tile.Position.x, tile.Position.y - offsetDown, 0);
+            DrawRecursesGroundDown(tile);
+        }
+    }
+
+    private bool GetPercentBool(int percent)
+    {
+        int randomChance = Random.Range(0, 100);
+        return percent > randomChance ? true : false;
     }
 }

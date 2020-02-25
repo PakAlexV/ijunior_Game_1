@@ -11,13 +11,15 @@ public class PlayerController : MonoBehaviour
     [SerializeField][Range(1, 5)] private int _speed = 2;
     private Vector3 _nextPos;
     private bool _canJump;
+    private float _offsetMovePosition = 1f;
 
     public UnityEvent getCoins;
     public UnityEvent gameOver;
 
+
     private void Start()
     {
-        _nextPos = new Vector3(_selfTransform.position.x + 1f, _selfTransform.position.y, 0);
+        _nextPos = new Vector3(_selfTransform.position.x + _offsetMovePosition, _selfTransform.position.y, 0);
     }
     
     private void FixedUpdate()
@@ -30,7 +32,7 @@ public class PlayerController : MonoBehaviour
         _selfTransform.position = Vector3.MoveTowards(_selfTransform.position, _nextPos, Time.deltaTime * _speed);
         if (_selfTransform.position.x - _nextPos.x < 0.3f)
         {
-            _nextPos.x = _nextPos.x + 1f;
+            _nextPos.x = _nextPos.x + _offsetMovePosition;
         }
     }
 
