@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public enum TypePalites
 {
@@ -23,6 +22,8 @@ public class EnvironmentPalite : ScriptableObject
     [SerializeField] private Sprite _angelLeftSprite;
     [SerializeField] private Sprite _angelRigthSprite;
 
+    [SerializeField] private GameObject _template;
+
     public Sprite SurfaceSprite { get => _surfaceSprite; }
     public Sprite LeftSprite { get => _leftSprite; }
     public Sprite RigthSprite { get => _rigthSprite; }
@@ -32,48 +33,5 @@ public class EnvironmentPalite : ScriptableObject
     public Sprite AngelLeftSprite { get => _angelLeftSprite; }
     public Sprite AngelRigthSprite { get => _angelRigthSprite; }
     public TypePalites TypePalite { get => _typePalite; }
-    
-    public Sprite NextExtraSprite(Sprite sprite)
-    {
-        if (TypePalites.Ground == _typePalite)
-        {
-            if (sprite == _angelLeftSprite)
-            {
-                return LeftSprite;
-            }
-            if (sprite == _rigthSprite)
-            {
-                return AngelRigthSprite;
-            }
-        }
-        else
-        {
-            if (sprite == _rigthSprite)
-            {
-                return SurfaceSprite;
-            }
-            if (sprite == _surfaceSprite)
-            {
-                return LeftSprite;
-            }
-        }
-        return null;
-    }
-
-    public Sprite GetBottomSprite(Sprite sprite)
-    {
-        if (sprite == _leftSprite)
-        {
-            return BottomLeftSprite;
-        }
-        if (sprite == _rigthSprite)
-        {
-            return BottomRigthSprite;
-        }
-        if (sprite == _surfaceSprite)
-        {
-            return BottomSprite;
-        }
-        return null;
-    }
+    public GameObject Template { get => _template; }
 }

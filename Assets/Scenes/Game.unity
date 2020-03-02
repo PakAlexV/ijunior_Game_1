@@ -598,8 +598,8 @@ GameObject:
   - component: {fileID: 1183164850}
   - component: {fileID: 1183164851}
   - component: {fileID: 1183164853}
-  - component: {fileID: 1183164852}
   - component: {fileID: 1183164854}
+  - component: {fileID: 1183164852}
   m_Layer: 0
   m_Name: Game
   m_TagString: Untagged
@@ -637,7 +637,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90c87889f6269494da98eddfa77ea5f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _panelAbout: {fileID: 0}
+  _panelAbout: {fileID: 51323503}
   _panelGameOver: {fileID: 1250993601}
 --- !u!114 &1183164852
 MonoBehaviour:
@@ -648,12 +648,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 1183164849}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 21c1b9faa84681e4db10f2d649063227, type: 3}
+  m_Script: {fileID: 11500000, guid: 566345bf0d17d9e4d816ccdb9c70c1fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _water: {fileID: 11400000, guid: 9813f99c974be434c94452c74c57fc3f, type: 2}
-  _ground: {fileID: 11400000, guid: 05605cdba3aa1de46bd8e1864b414f78, type: 2}
-  _hole: {fileID: 11400000, guid: 75bd88e1ffc418f4c9185eec485c62ec, type: 2}
+  _waterPalite: {fileID: 11400000, guid: 0f9cca87786a34048a56fe8ca894ba25, type: 2}
+  _groundPalite: {fileID: 11400000, guid: 1624557544b02884fa740c30235bd98a, type: 2}
+  _holePalite: {fileID: 11400000, guid: 83e686cb2ada4834a921f542312b010a, type: 2}
+  _templateBottom: {fileID: 8356607686945736341, guid: fe19f410e08e3134b9866dee71298326,
+    type: 3}
 --- !u!114 &1183164853
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -666,19 +668,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0869f7c7dca7b8146834eef27c74fd63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _landscapeParent: {fileID: 807189260}
-  _destroerLandscape: {fileID: 51323505}
-  _depthLandscape: 5
-  _initWidthLandscape: 18
-  _prefabSurfase: {fileID: 5391599489163819401, guid: 6238684ca413b4447ac12f4b9d122551,
+  _parentLandscape: {fileID: 807189260}
+  _destroyerLandscape: {fileID: 51323505}
+  _templateCoin: {fileID: 2973052037193214109, guid: cc49c21a76ea0c54383a816612754409,
     type: 3}
-  _prefabBottom: {fileID: 8356607686945736341, guid: fe19f410e08e3134b9866dee71298326,
-    type: 3}
-  _prefabHole: {fileID: 227283821423877131, guid: 73258571e400bb54d98dfd2442d12a05,
-    type: 3}
-  _prefabBarrier: {fileID: 6715589986025965524, guid: 0bef0cff447309e458c2d0b9d1bbd340,
-    type: 3}
-  _prefabCoin: {fileID: 2973052037193214109, guid: cc49c21a76ea0c54383a816612754409,
+  _templateBarrier: {fileID: 6715589986025965524, guid: 0bef0cff447309e458c2d0b9d1bbd340,
     type: 3}
 --- !u!114 &1183164854
 MonoBehaviour:

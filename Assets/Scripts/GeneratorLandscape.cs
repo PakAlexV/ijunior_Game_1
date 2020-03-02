@@ -1,148 +1,211 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
-[RequireComponent(typeof(ReceiveSprites))]
-[RequireComponent(typeof(DrawTile))]
 public class GeneratorLandscape : MonoBehaviour
 {
-    [SerializeField] private GameObject _landscapeParent;
-    [SerializeField] private DestroyerLandscape _destroerLandscape;
+    [SerializeField] private GameObject _parentLandscape;
+    [SerializeField] private DestroyerLandscape _destroyerLandscape;
+    [SerializeField] private GameObject _templateCoin;
+    [SerializeField] private GameObject _templateBarrier;
+    private FactoryLandscapeTile _factoryLandscape;
+    private DrawTile _drawerTile;
 
-    [SerializeField] [Range(3, 6)] private int _depthLandscape = 5;
-    [SerializeField] [Range(10, 25)] private int _initWidthLandscape = 22;
-
-    [SerializeField] private GameObject _prefabSurfase;
-    [SerializeField] private GameObject _prefabBottom;
-    [SerializeField] private GameObject _prefabHole;
-    [SerializeField] private GameObject _prefabBarrier;
-    [SerializeField] private GameObject _prefabCoin;
-
-    private ReceiveSprites _receiveSprites;
-    private DrawTile _drawTile;
-    private Vector2 _currentPositionLandscepe = new Vector2(0, 0);
-    private Sprite nextSprite;
-    private bool _canDrawBarriers = false;
-
-    private void OnTileDestroyed()
-    {
-        DrawLandscape();
-        UpdatePositionLandscape(nextSprite);
-    }
-
-    private void OnDisable()
-    {
-        _destroerLandscape.LandscapeDestroyed -= OnTileDestroyed;
-    }
-
-    private void OnEnable()
-    {
-        _destroerLandscape.LandscapeDestroyed += OnTileDestroyed;
-    }
+    private Vector3 _currentPosition = new Vector3(0, 0, 0);
+    private const int MaxHeightLandscape = 2;
+    private const int MinHeightLandscape = -2;
+    private const int OffcetHeight = 1;
+    private const int DepthLandscape = 5;
+    private bool _isGround;
 
     private void Start()
     {
-        _receiveSprites = FindObjectOfType<ReceiveSprites>();
-        _drawTile = FindObjectOfType<DrawTile>();
-        DrawPrimaryLandscape();
-    }
+        _factoryLandscape = FindObjectOfType<FactoryLandscapeTile>();
+        _drawerTile = GetComponent<DrawTile>();
 
-    private void UpdatePositionLandscape(Sprite sprite)
-    {
-        if (_receiveSprites.GetUpLandscape(sprite))
-        {
-            _currentPositionLandscepe.y++;
-        }
-        else if (_receiveSprites.GetDownLandscape(sprite))
-        {
-            _currentPositionLandscepe.y--;
-        }
-        else
-        {
-            _currentPositionLandscepe.x++;
-        }
+        DrawPrimaryLandscape();
     }
 
     private void DrawPrimaryLandscape()
     {
-        while (_currentPositionLandscepe.x < _initWidthLandscape)
+        int intWidthLandscape = 20;
+        for (int i = 0; i < intWidthLandscape; i++)
         {
-            DrawLandscape();
-            UpdatePositionLandscape(nextSprite);
+            DrawNextTiles();
+        }
+    }
+
+    private void DrawNextTiles()
+    {
+        List<Tile> tiles = new List<Tile>();
+        _isGround = false;
+        tiles = GetNextTiles(_currentPosition);
+        float underTileHeight = 0;
+        for (int i = 1; i < tiles.Count; i++)
+        {
+            if (tiles[i].Position.y < tiles[i - 1].Position.y)
+            {
+                underTileHeight = tiles[i].Position.y;
+            }
+        }
+        for (int i = 0; i < tiles.Count; i++)
+        {
+            _drawerTile.Draw(tiles[i], _parentLandscape);
+            if (tiles[i].Position.y != underTileHeight)
+            {
+                if (_isGround)
+                {
+                    DrawBonus();
+                }
+                UpdatePositionLandscape(tiles[i]);
+            }
+            else
+            {
+                DrawRecursesGroundDown(tiles[i]);
+            }
         }
     }
 
     private void DrawBonus()
     {
-        int offsetOverSurfase = 1;
-        if (GetPercentBool(30))
+        int percentChanceCoin = 50;
+        int percentChanceBarrier = 30;
+        if (GetPercentBool(percentChanceCoin))
         {
-            DrawTile(new Vector3(_currentPositionLandscepe.x, _currentPositionLandscepe.y + offsetOverSurfase, 0), _prefabCoin);
+            Tile coin = new Tile(null, new Vector3(_currentPosition.x, _currentPosition.y + OffcetHeight, 0), _templateCoin);
+            _drawerTile.Draw(coin, _parentLandscape);
         }
-        else if (GetPercentBool(30) && CanDrawBarrier())
+        else if (GetPercentBool(percentChanceBarrier)) 
         {
-            DrawTile(new Vector3(_currentPositionLandscepe.x, _currentPositionLandscepe.y + offsetOverSurfase, 0), _prefabBarrier);
+            Tile barrier = new Tile(null, new Vector3(_currentPosition.x, _currentPosition.y + OffcetHeight, 0), _templateBarrier);
+            _drawerTile.Draw(barrier, _parentLandscape);
         }
     }
 
-    private bool CanDrawBarrier()
+    private void UpdatePositionLandscape(Tile tile)
     {
-        if (_canDrawBarriers)
-        {
-            _canDrawBarriers = false;
-        }
-        else
-            _canDrawBarriers = true;
-        return _canDrawBarriers;
+        _currentPosition = tile.Position;
+        _currentPosition.x++;
     }
 
-    private void DrawLandscape()
+    private void OnTileDestroyed()
     {
-        DrawGenereteTile(nextSprite);
-        DrawBottomTiles();
-        if (_receiveSprites.IsSurface(nextSprite))
-        {
-            DrawBonus();
-        }
+        DrawNextTiles();
     }
-
-    private void DrawTile(Vector3 position, GameObject prefab, Sprite sprite = null)
+    
+    private void OnDisable()
     {
-        Tile tile = new Tile(sprite, position, prefab, _landscapeParent);
-        _drawTile.Draw(tile);
+        _destroyerLandscape.LandscapeDestroyed -= OnTileDestroyed;
     }
 
-    private void DrawGenereteTile(Sprite sprite)
+    private void OnEnable()
     {
-        nextSprite = _receiveSprites.GetNextSprite(sprite, _currentPositionLandscepe.y);
-        Vector3 nextPosition = new Vector3(_currentPositionLandscepe.x, _currentPositionLandscepe.y, 0);
-        GameObject prefab = _prefabSurfase;
-        if (_receiveSprites.IsGap(nextSprite))
-        {
-            prefab = _prefabHole;
-        }
-        DrawTile(nextPosition, prefab, nextSprite);
+        _destroyerLandscape.LandscapeDestroyed += OnTileDestroyed;
     }
-
-    private void DrawBottomTiles()
-    {
-        if (_receiveSprites.CanBottomSprite(nextSprite))
-        {
-            int offsetDown = 1;
-            Sprite bottomSprite = _receiveSprites.GetBottomSprite(nextSprite);
-            Vector3 position = new Vector3(_currentPositionLandscepe.x, _currentPositionLandscepe.y - offsetDown, 0);
-            Tile tile = new Tile(bottomSprite, position, _prefabBottom, _landscapeParent);
-            DrawRecursesGroundDown(tile);
-        }
-    }
-
+    
     private void DrawRecursesGroundDown(Tile tile)
     {
         int offsetDown = 1;
-        _drawTile.Draw(tile);
-        if (tile.Position.y - offsetDown > -_depthLandscape)
+        if (tile.Position.y - offsetDown > -DepthLandscape)
         {
             tile.Position = new Vector3(tile.Position.x, tile.Position.y - offsetDown, 0);
+            _drawerTile.Draw(tile, _parentLandscape);
             DrawRecursesGroundDown(tile);
         }
+    }
+
+    private List<Tile> GetNextTiles(Vector3 position)
+    {
+        if (position.y == MaxHeightLandscape)
+        {
+            return GetNextUpperRandomTiles(position);
+        }
+        if (position.y == MinHeightLandscape)
+        {
+            return GetNextLowerRandomTiles(position);
+        }
+        return GetNextMidleRandomTiles(position);
+    }
+
+    private List<Tile> GetNextUpperRandomTiles(Vector3 position)
+    {
+        int percentChance = 50;
+        List<Tile> tiles = new List<Tile>();
+        if (GetPercentBool(percentChance))
+        {
+            tiles = _factoryLandscape.GetGroundDownTiles(position, OffcetHeight);
+        }
+        else
+        {
+            _isGround = true;
+            tiles = _factoryLandscape.GetGroundSurfaceTiles(position);
+        }
+        tiles.AddRange(AddBottomTiles(tiles));
+        return tiles;
+    }
+
+    private List<Tile> GetNextLowerRandomTiles(Vector3 position)
+    {
+        int percentChance = 50;
+        List<Tile> tiles = new List<Tile>();
+        if (GetPercentBool(percentChance))
+        {
+            tiles = _factoryLandscape.GetGroundUpTiles(position, OffcetHeight);
+        }
+        else
+        {
+            _isGround = true;
+            tiles = _factoryLandscape.GetGroundSurfaceTiles(position);
+        }
+        tiles.AddRange(AddBottomTiles(tiles));
+        return tiles;
+    }
+
+    private List<Tile> AddBottomTiles(List<Tile> tiles)
+    {
+        Vector3 positionBottom = tiles[0].Position;
+        for (int i = 1; i < tiles.Count; i++)
+        {
+            if (positionBottom.y > tiles[i].Position.y)
+            {
+                positionBottom.y = tiles[i].Position.y;
+            }
+        }
+        return _factoryLandscape.GetGroundBottomTiles(new Vector3(positionBottom.x, positionBottom.y - OffcetHeight, positionBottom.z));
+    }
+
+    private List<Tile> GetNextMidleRandomTiles(Vector3 position)
+    {
+        int _chanceLandscape = Random.Range(1, 10);
+        List<Tile> tiles = new List<Tile>();
+        Vector3 bottomPosition = new Vector3(position.x, position.y - OffcetHeight, position.z);
+        switch (_chanceLandscape)
+        {
+            case 1:
+                tiles = _factoryLandscape.GetHoleSurfaceTiles(position);
+                tiles.AddRange(_factoryLandscape.GetHoleBottomTiles(bottomPosition));
+                break;
+            case 2:
+                tiles = _factoryLandscape.GetWaterSurfaceTiles(position);
+                tiles.AddRange(_factoryLandscape.GetWaterBottomTiles(bottomPosition));
+                break;
+            case 3:
+            case 4:
+                tiles = _factoryLandscape.GetGroundDownTiles(position, OffcetHeight);
+                tiles.AddRange(AddBottomTiles(tiles));
+                break;
+            case 5:
+            case 6:
+                tiles = _factoryLandscape.GetGroundUpTiles(position, OffcetHeight);
+                tiles.AddRange(AddBottomTiles(tiles));
+                break;
+            default:
+                _isGround = true;
+                tiles = _factoryLandscape.GetGroundSurfaceTiles(position);
+                tiles.AddRange(AddBottomTiles(tiles));
+                break;
+        }
+        return tiles;
     }
 
     private bool GetPercentBool(int percent)
