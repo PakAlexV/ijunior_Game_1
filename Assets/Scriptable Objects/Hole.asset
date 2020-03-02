@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a57c556185957fa449819c815e6fd44b, type: 3}
+  m_Name: Hole
+  m_EditorClassIdentifier: 
+  _typePalite: 1
+  _surfaceSprite: {fileID: 21300004, guid: 08d8cdcc359b1594594548ca20a762ff, type: 3}
+  _leftSprite: {fileID: 21300006, guid: 08d8cdcc359b1594594548ca20a762ff, type: 3}
+  _rigthSprite: {fileID: 21300002, guid: 08d8cdcc359b1594594548ca20a762ff, type: 3}
+  _bottomSprite: {fileID: 21300022, guid: 08d8cdcc359b1594594548ca20a762ff, type: 3}
+  _bottomLeftSprite: {fileID: 21300024, guid: 08d8cdcc359b1594594548ca20a762ff, type: 3}
+  _bottomRigthSprite: {fileID: 21300020, guid: 08d8cdcc359b1594594548ca20a762ff, type: 3}
+  _angelLeftSprite: {fileID: 0}
+  _angelRigthSprite: {fileID: 0}
